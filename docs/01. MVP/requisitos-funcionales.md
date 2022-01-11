@@ -9,7 +9,7 @@ Sistema de programación de publicaciónes en RRSS(Twitter) que permita a travé
 
 - Post: Una publicación simple.
 	- Máximo 280 caracteres.
-	- Puede contener 1 imagen en formato GIF o 1-4 imágenes en formato JPG o PNG.
+	- Puede contener 1 imagen en formato GIF, JPG o PNG.
 
 - Thread: Es una agrupación 2 o más posts, que mantiene un orden relativo entre ello.
 
