@@ -45,4 +45,4 @@ Enum
 | Nombre        		| Tipo          	| Required	|
 | ----------------- 	| -----------------	| :---:		|	
 | content  				| string			| ✅  	|
-| imageURL				| string  			| ✅  	|
+| imageURL				| string  			| ❌  	|

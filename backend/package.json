@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^3.25.3"
+    "fastify": "^3.25.3",
+    "mongoose": "^6.1.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
