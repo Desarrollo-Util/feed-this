@@ -2,3 +2,14 @@
 @import './colors.css';
 @import './fonts.css';
 @import './texts.css';
+
+body {
+	background-color: var(--bg-700);
+	color: var(--white);
+
+	line-height: 1.5rem;
+}
+
+input {
+	border: none;
+}

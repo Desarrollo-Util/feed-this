@@ -1,0 +1,24 @@
+.wrapper,
+.wrapperReverse {
+	display: flex;
+	align-items: center;
+}
+
+.wrapperReverse {
+	flex-direction: row-reverse;
+}
+
+.names,
+.namesReverse {
+	display: flex;
+	flex-direction: column;
+}
+
+.names {
+	margin-left: 1rem;
+}
+
+.namesReverse {
+	margin-right: 1rem;
+	align-items: end;
+}

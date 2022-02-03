@@ -1,0 +1,30 @@
+.inputText_wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	padding: 1rem;
+}
+
+.inputText_label {
+	color: var(--white);
+}
+
+.inputText {
+	background-color: var(--bg-700);
+	outline: 1px solid var(--bg-700);
+	border-radius: 8px;
+	margin-top: 0.25rem;
+	padding: 0.5rem 1rem;
+	min-height: 40px;
+	width: 100%;
+	color: var(--white);
+}
+
+.inputText:focus {
+	outline: 1px solid var(--primary);
+}
+
+.inputText::placeholder {
+	color: var(--gray);
+}
