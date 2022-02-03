@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 const UserDisplay: FC = () => {
-  return <></>;
+	return <></>;
 };
 
 export default UserDisplay;

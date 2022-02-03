@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 const InputText: FC = () => {
-  return <></>;
+	return <></>;
 };
 
 export default InputText;
