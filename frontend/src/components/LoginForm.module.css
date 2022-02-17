@@ -1,0 +1,29 @@
+.wrapper {
+	padding: 2rem 3rem;
+	width: 23.75rem;
+
+	background-color: var(--bg);
+
+	border-radius: 1rem;
+	margin: auto;
+	margin-top: 6rem;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	text-align: center;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.inputs {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}

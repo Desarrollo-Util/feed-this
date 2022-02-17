@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fastify = require('fastify')();
+const fastifyCors = require('fastify-cors');
 const mongoose = require('mongoose');
 const registerRoutes = require('./routes');
 
@@ -19,6 +20,10 @@ const bootstrap = async () => {
 
 		//Creamos un usuario si no existe
 		await createFirstUser();
+
+		fastify.register(fastifyCors, {
+			origin: ['http://localhost:3000'],
+		});
 
 		//Endpoints
 		registerRoutes(fastify);

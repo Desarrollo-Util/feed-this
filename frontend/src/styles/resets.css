@@ -362,3 +362,14 @@ html {
 *:after {
 	box-sizing: inherit;
 }
+
+/*
+	Default button pointer and disabled
+*/
+button {
+	cursor: pointer;
+}
+
+button:disabled {
+	cursor: default;
+}

@@ -1,28 +1,42 @@
-import { FC } from 'react';
+import clsx from 'clsx';
+import { ComponentProps, FC } from 'react';
+import { useFormContext, Validate } from 'react-hook-form';
 import styles from './InputText.module.css';
 
-type InputTextProps = {
+type Props = {
 	label: string;
-	placeholder: string;
-	defaultValue?: string;
-};
+	name: string;
+	required?: string | boolean;
+	validate?: Validate<any> | Record<string, Validate<any>>;
+} & Omit<ComponentProps<'input'>, 'type' | 'required'>;
 
-const InputText: FC<InputTextProps> = ({
+const InputText: FC<Props> = ({
+	name,
 	label,
-	placeholder,
-	defaultValue,
+	className,
+	required = false,
+	validate,
+	...inputProps
 }) => {
+	const { register, formState, getFieldState } = useFormContext();
+	const { error } = getFieldState(name, formState);
+
+	const css = clsx(styles.wrapper, className);
+	const inputCss = clsx(styles.input, {
+		[styles.borderError]: error,
+	});
+	const errorCss = clsx('text-sm', styles.error);
+
 	return (
-		<div className={styles.inputText_wrapper}>
-			<label className={`${styles.inputText_label} text-sm-bold`}>
-				{label}
-			</label>
+		<label className={css}>
+			<span className='text-sm-bold'>{label}</span>
 			<input
-				className={styles.inputText}
+				className={inputCss}
 				type='text'
-				placeholder={placeholder}
-				defaultValue={defaultValue}></input>
-		</div>
+				{...inputProps}
+				{...register(name, { required, validate })}></input>
+			{error && <span className={errorCss}>{error.message}</span>}
+		</label>
 	);
 };
 

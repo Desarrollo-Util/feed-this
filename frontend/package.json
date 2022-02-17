@@ -7,6 +7,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"clsx": "1.1.1",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
 		"react-hook-form": "7.26.1",
@@ -19,7 +20,7 @@
 		"@typescript-eslint/parser": "5.11.0",
 		"@vitejs/plugin-react": "1.2.0",
 		"eslint": "7.32.0",
-		"eslint-config-prettier": "^8.3.0",
+		"eslint-config-prettier": "8.3.0",
 		"eslint-config-standard": "16.0.3",
 		"eslint-plugin-import": "2.25.4",
 		"eslint-plugin-node": "11.1.0",
