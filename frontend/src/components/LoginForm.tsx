@@ -1,5 +1,9 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { loginRequest } from '../lib/api/login.request';
+import { profileRequest } from '../lib/api/profile.request';
+import { AuthContext } from '../lib/contexts/auth.context';
+import { emailValidation } from '../lib/validations/form-validations';
 import Button from './Button';
 import InputPassword from './InputPassword';
 import InputText from './InputText';
@@ -10,35 +14,32 @@ type LoginFormInput = {
 	password: string;
 };
 
-const EMAIL_REGEX =
-	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 const LoginForm: FC = () => {
 	const methods = useForm<LoginFormInput>({});
+
+	const { login } = useContext(AuthContext);
 
 	const onSubmit: SubmitHandler<LoginFormInput> = async ({
 		email,
 		password,
 	}) => {
-		const response = await fetch('http://localhost:4000/login', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				email,
-				password,
-			}),
-		});
+		const loginResponse = await loginRequest(email, password);
 
-		const data = await response.json();
-
-		if (!response.ok) {
+		if (loginResponse.error) {
 			// TODO Tratar el error
-		} else {
-			// TODO Generar un estado de autenticación.
-			localStorage.setItem('jid', data.token);
+			console.error(loginResponse.error);
+			return;
 		}
+
+		const profileResponse = await profileRequest(loginResponse.data);
+
+		if (profileResponse.error) {
+			// TODO Tratar el error
+			console.error(profileResponse.error);
+			return;
+		}
+
+		login(loginResponse.data, profileResponse.data);
 	};
 
 	return (
@@ -53,13 +54,15 @@ const LoginForm: FC = () => {
 							name='email'
 							required='Completa el email'
 							validate={{
-								email: v => EMAIL_REGEX.test(v) || 'El email no es válido',
+								// TODO: Quitar string mágico
+								email: v => emailValidation(v) || 'El email no es válido',
 							}}
 						/>
 						<InputPassword
 							label='Contraseña'
 							placeholder='Tu contraseña'
 							name='password'
+							// TODO: Quitar string mágico
 							required='Completa la contraseña'
 						/>
 					</div>

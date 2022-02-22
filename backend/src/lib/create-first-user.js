@@ -10,6 +10,7 @@ const createFirstUser = async () => {
 
 		await userModel.create({
 			_id: uuid(),
+			name: 'Administrador',
 			email: 'admin@desarrolloutil.com',
 			password: hashedPassword,
 		});

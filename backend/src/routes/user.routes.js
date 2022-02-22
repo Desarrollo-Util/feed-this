@@ -25,7 +25,7 @@ const profileHandler = async (request, reply) => {
 			throw new Error('Usuario no autenticado');
 		}
 
-		return { id, email: existingUser.email };
+		return { id, email: existingUser.email, name: existingUser.name };
 	} catch (err) {
 		reply.code(401);
 		throw new Error('Usuario no autenticado');
