@@ -1,31 +1,18 @@
 const { verifyAsync } = require('../lib/jwt');
+const { authMiddleware } = require('../middlewares/auth.middleware');
 const userModel = require('../models/user.model');
 
 const profileHandler = async (request, reply) => {
-	const { authorization } = request.headers;
-
-	if (!authorization) {
-		reply.code(401);
-		throw new Error('Usuario no autenticado');
-	}
-
-	const token = authorization.split(' ')[1];
-
-	if (!token) {
-		reply.code(401);
-		throw new Error('Usuario no autenticado');
-	}
+	const { userId } = request;
 
 	try {
-		const { id } = await verifyAsync(token);
-
-		const existingUser = await userModel.findById(id).exec();
+		const existingUser = await userModel.findById(userId).exec();
 		if (!existingUser) {
 			reply.code(401);
 			throw new Error('Usuario no autenticado');
 		}
 
-		return { id, email: existingUser.email, name: existingUser.name };
+		return { id: userId, email: existingUser.email, name: existingUser.name };
 	} catch (err) {
 		reply.code(401);
 		throw new Error('Usuario no autenticado');
@@ -33,6 +20,7 @@ const profileHandler = async (request, reply) => {
 };
 
 module.exports = (fastify, _, done) => {
+	fastify.addHook('onRequest', authMiddleware);
 	fastify.get('/profile', profileHandler);
 
 	done();

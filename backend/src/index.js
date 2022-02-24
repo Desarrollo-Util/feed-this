@@ -7,6 +7,8 @@ const registerRoutes = require('./routes');
 const createFirstUser = require('./lib/create-first-user');
 const printTitle = require('./lib/print-title');
 
+const Agenda = require('agenda');
+
 const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -35,6 +37,34 @@ const bootstrap = async () => {
 		console.error(error);
 		process.exit();
 	}
+};
+
+//TODO Remove this proof of concept
+const initAgenda = async () => {
+	const mongoConnection = await mongoose
+		.createConnection(MONGO_URI)
+		.asPromise();
+	const agenda = new Agenda();
+
+	agenda.mongo(mongoConnection.db);
+
+	await agenda.start();
+
+	const jobs = await agenda.jobs({ name: 'test', 'data.id': 'bs' });
+	console.log(jobs);
+
+	// agenda.define('test', ({ name }) => {
+	// 	console.log(`Nombre : ${name}`);
+	// });
+
+	// const fecha1 = new Date();
+	// fecha1.setMinutes(fecha1.getSeconds() + 10);
+
+	// const fecha2 = new Date();
+	// fecha2.setMinutes(fecha2.getSeconds() + 12);
+
+	// agenda.schedule(fecha1, 'test', { id: 'as', name: 'Jose' });
+	// agenda.schedule(fecha2, 'test', { id: 'bs', name: 'Pablo' });
 };
 
 bootstrap();
